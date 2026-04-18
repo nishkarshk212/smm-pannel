@@ -63,6 +63,15 @@ model Order {
   user          User     @relation(fields: [userId], references: [id])
 }
 
+model TelegramAccount {
+  id          String   @id @default(cuid())
+  phoneNumber String?  @unique
+  session     String   // The GramJS/Telegram session string
+  isActive    Boolean  @default(true)
+  lastUsed    DateTime @default(now())
+  createdAt   DateTime @default(now())
+}
+
 model Payment {
   id            String   @id @default(cuid())
   userId        String

@@ -44,6 +44,12 @@ export default async function DashboardLayout({
                 >
                   Add Funds
                 </Link>
+                <Link
+                  href="/admin/telegram-accounts"
+                  className="border-transparent text-red-500 hover:border-gray-300 hover:text-red-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                >
+                  Admin Accounts
+                </Link>
               </div>
             </div>
             <div className="flex items-center">
