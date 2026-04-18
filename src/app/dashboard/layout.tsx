@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 export default async function DashboardLayout({
   children,
@@ -20,7 +21,14 @@ export default async function DashboardLayout({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex">
-              <div className="flex-shrink-0 flex items-center">
+              <div className="flex-shrink-0 flex items-center gap-3">
+                <Image
+                  src="/logo.png"
+                  alt="SMM Panel"
+                  width={40}
+                  height={40}
+                  className="object-contain"
+                />
                 <Link href="/dashboard" className="text-2xl font-bold text-gradient">
                   SMM Panel
                 </Link>

@@ -4,6 +4,7 @@ import { signIn, useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { LogIn, Mail, Loader2 } from "lucide-react";
+import Image from "next/image";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -75,8 +76,14 @@ export default function SignInPage() {
       <div className="w-full max-w-md">
         {/* Logo/Title */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-indigo-600 to-violet-600 rounded-2xl mb-4 shadow-lg shadow-indigo-500/30">
-            <LogIn className="w-8 h-8 text-white" />
+          <div className="flex justify-center mb-4">
+            <Image
+              src="/logo.png"
+              alt="SMM Panel Logo"
+              width={80}
+              height={80}
+              className="object-contain drop-shadow-xl"
+            />
           </div>
           <h1 className="text-3xl font-bold text-white mb-2">
             {isSignUp ? "Create Account" : "Welcome Back"}

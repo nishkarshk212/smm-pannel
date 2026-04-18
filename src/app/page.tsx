@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -8,6 +9,18 @@ export default function Home() {
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2 animate-pulse delay-1000"></div>
 
       <div className="z-10 max-w-5xl w-full text-center space-y-8">
+        {/* Logo */}
+        <div className="flex justify-center mb-6">
+          <Image
+            src="/logo.png"
+            alt="SMM Panel Logo"
+            width={120}
+            height={120}
+            className="object-contain drop-shadow-2xl"
+            priority
+          />
+        </div>
+
         <div className="inline-block px-4 py-1.5 mb-4 rounded-full bg-white/50 dark:bg-slate-800/50 backdrop-blur-md border border-indigo-100 dark:border-slate-700 shadow-sm animate-bounce">
           <span className="text-sm font-bold text-indigo-600 dark:text-indigo-400">
             ✨ #1 Telegram SMM Panel
