@@ -1,7 +1,10 @@
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { prisma } from "@/lib/prisma";
+
+// Force dynamic rendering to prevent build-time database access
+export const dynamic = 'force-dynamic';
 
 // This would typically be an admin-only endpoint
 export async function POST(req: Request) {

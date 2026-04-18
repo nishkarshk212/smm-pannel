@@ -4,6 +4,9 @@ import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { processTelegramOrder } from "@/lib/telegram";
 
+// Force dynamic rendering to prevent build-time database access
+export const dynamic = 'force-dynamic';
+
 const PRICE_PER_UNIT = 0.01;
 
 export async function POST(req: Request) {
