@@ -22,24 +22,37 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!prisma || !credentials?.email) return null;
-
-        // For simplicity in this demo, we'll just find or create a user
-        // In a real app, you'd check passwords
-        let user = await prisma.user.findUnique({
-          where: { email: credentials.email },
-        });
-
-        if (!user) {
-          user = await prisma.user.create({
-            data: {
-              email: credentials.email,
-              name: credentials.email.split("@")[0],
-            },
-          });
+        if (!credentials?.email) {
+          throw new Error("Email is required");
         }
 
-        return user;
+        // If prisma is not available, throw error
+        if (!prisma) {
+          console.error("Database not configured");
+          throw new Error("Database connection error. Please try again later.");
+        }
+
+        try {
+          // For simplicity in this demo, we'll just find or create a user
+          // In a real app, you'd check passwords
+          let user = await prisma.user.findUnique({
+            where: { email: credentials.email },
+          });
+
+          if (!user) {
+            user = await prisma.user.create({
+              data: {
+                email: credentials.email,
+                name: credentials.email.split("@")[0],
+              },
+            });
+          }
+
+          return user;
+        } catch (error: any) {
+          console.error("Auth error:", error);
+          throw new Error(error.message || "Failed to authenticate user");
+        }
       },
     }),
   ],

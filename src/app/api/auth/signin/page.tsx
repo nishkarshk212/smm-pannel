@@ -27,16 +27,23 @@ export default function SignInPage() {
       const result = await signIn("credentials", {
         email,
         redirect: false,
+        callbackUrl: "/dashboard",
       });
 
+      console.log("Sign in result:", result);
+
       if (result?.error) {
-        setError("Failed to sign in. Please try again.");
-      } else {
+        setError(result.error || "Failed to sign in. Please try again.");
+      } else if (result?.ok) {
+        // Successful sign in
         router.push("/dashboard");
         router.refresh();
+      } else {
+        setError("An unexpected error occurred. Please try again.");
       }
-    } catch (err) {
-      setError("An error occurred. Please try again.");
+    } catch (err: any) {
+      console.error("Sign in error:", err);
+      setError(err.message || "An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
     }
