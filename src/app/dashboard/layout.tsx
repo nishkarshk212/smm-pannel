@@ -45,10 +45,22 @@ export default async function DashboardLayout({
                   Add Funds
                 </Link>
                 <Link
+                  href="/dashboard/referrals"
+                  className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                >
+                  Affiliates
+                </Link>
+                <Link
+                  href="/dashboard/tickets"
+                  className="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
+                >
+                  Support
+                </Link>
+                <Link
                   href="/admin/telegram-accounts"
                   className="border-transparent text-red-500 hover:border-gray-300 hover:text-red-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium"
                 >
-                  Admin Accounts
+                  Admin
                 </Link>
               </div>
             </div>
