@@ -2,10 +2,11 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import Stripe from 'stripe';
 
-// In a real app, you would use Stripe SDK:
-// import Stripe from 'stripe';
-// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
+  apiVersion: '2024-04-10',
+});
 
 export async function POST(req: Request) {
   const session = await getServerSession(authOptions);
@@ -21,35 +22,32 @@ export async function POST(req: Request) {
   }
 
   try {
-    // SIMULATION: In a real app, you'd create a Stripe Checkout Session here
-    // and return the URL. For this demo, we'll just simulate a successful top-up.
-    
-    const result = await prisma.$transaction(async (tx) => {
-      // Create payment record
-      const payment = await tx.payment.create({
-        data: {
-          userId: (session.user as any).id,
-          amount,
-          status: "COMPLETED", // Simulated success
-          provider: "STRIPE",
-          externalId: "sim_" + Math.random().toString(36).substring(7),
+    // Create Stripe Checkout Session
+    const stripeSession = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Wallet Top-up',
+              description: `Add $${amount} to your wallet`,
+            },
+            unit_amount: Math.round(amount * 100), // Convert to cents
+          },
+          quantity: 1,
         },
-      });
-
-      // Update user balance
-      await tx.user.update({
-        where: { id: (session.user as any).id },
-        data: { balance: { increment: amount } },
-      });
-
-      return payment;
+      ],
+      mode: 'payment',
+      success_url: `${process.env.NEXTAUTH_URL}/dashboard/funds?success=true&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXTAUTH_URL}/dashboard/funds?canceled=true`,
+      metadata: {
+        userId: (session.user as any).id,
+        amount: amount.toString(),
+      },
     });
 
-    // Return a dummy URL to simulate redirection, or just success
-    return NextResponse.json({ 
-      message: "Funds added successfully (Simulated)", 
-      url: "/dashboard?success=true" 
-    });
+    return NextResponse.json({ url: stripeSession.url });
 
   } catch (err) {
     console.error("Payment error:", err);
