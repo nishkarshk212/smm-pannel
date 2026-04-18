@@ -24,7 +24,6 @@ export default function FundsForm() {
         throw new Error(result.error || "Failed to initiate payment");
       }
 
-      // Redirect to Stripe checkout
       if (result.url) {
         window.location.href = result.url;
       }
@@ -37,19 +36,19 @@ export default function FundsForm() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <label htmlFor="amount" className="block text-sm font-medium text-gray-700">
-          Amount (USD)
+      <div className="space-y-2">
+        <label htmlFor="amount" className="block text-sm font-bold text-slate-700 dark:text-slate-300">
+          Recharge Amount (USD)
         </label>
-        <div className="mt-1 relative rounded-md shadow-sm">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <span className="text-gray-500 sm:text-sm">$</span>
+        <div className="relative group">
+          <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+            <span className="text-slate-500 font-bold">$</span>
           </div>
           <input
             type="number"
             name="amount"
             id="amount"
-            className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md"
+            className="input-field pl-8 py-3 text-lg font-bold"
             placeholder="0.00"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
@@ -57,26 +56,31 @@ export default function FundsForm() {
             required
           />
         </div>
+        <p className="text-xs text-slate-500 font-medium px-1">Min. deposit: $5.00</p>
       </div>
 
       <div className="grid grid-cols-1 gap-4">
         <button
           onClick={handleStripePayment}
           disabled={loading}
-          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          className={`w-full btn-primary py-4 text-base ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
         >
-          {loading ? "Processing..." : "Pay with Stripe"}
+          {loading ? "Connecting to Stripe..." : "Top up with Stripe"}
         </button>
         
         <button
           disabled={true}
-          className="w-full flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 opacity-50 cursor-not-allowed"
+          className="w-full flex justify-center items-center py-4 px-4 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-800 text-sm font-bold text-slate-400 bg-transparent cursor-not-allowed"
         >
-          Pay with Crypto (Coming Soon)
+          <span className="mr-2">⚡</span> Pay with Crypto (Soon)
         </button>
       </div>
 
-      {error && <p className="text-red-500 text-sm">{error}</p>}
+      {error && (
+        <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-900/20 border border-rose-100 dark:border-rose-800">
+          <p className="text-rose-600 dark:text-rose-400 text-sm font-medium">{error}</p>
+        </div>
+      )}
     </div>
   );
 }

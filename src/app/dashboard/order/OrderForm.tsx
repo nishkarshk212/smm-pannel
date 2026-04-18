@@ -46,15 +46,15 @@ export default function OrderForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      <div>
-        <label htmlFor="service" className="block text-sm font-medium text-gray-700">
-          Service
+    <form onSubmit={handleSubmit} className="space-y-6">
+      <div className="space-y-2">
+        <label htmlFor="service" className="block text-sm font-bold text-slate-700 dark:text-slate-300">
+          Service Type
         </label>
         <select
           id="service"
           name="service"
-          className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
+          className="input-field"
           required
         >
           <option value="telegram_members">Telegram Members (Mass Adding)</option>
@@ -62,22 +62,22 @@ export default function OrderForm() {
         </select>
       </div>
 
-      <div>
-        <label htmlFor="target" className="block text-sm font-medium text-gray-700">
+      <div className="space-y-2">
+        <label htmlFor="target" className="block text-sm font-bold text-slate-700 dark:text-slate-300">
           Target Link / Username
         </label>
         <input
           type="text"
           name="target"
           id="target"
-          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          className="input-field"
           placeholder="@channelname or https://t.me/..."
           required
         />
       </div>
 
-      <div>
-        <label htmlFor="quantity" className="block text-sm font-medium text-gray-700">
+      <div className="space-y-2">
+        <label htmlFor="quantity" className="block text-sm font-bold text-slate-700 dark:text-slate-300">
           Quantity
         </label>
         <input
@@ -86,24 +86,34 @@ export default function OrderForm() {
           id="quantity"
           min="100"
           step="100"
-          className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          className="input-field"
           placeholder="Min 100"
           required
         />
-        <p className="mt-1 text-xs text-gray-500">Price: $0.01 per member</p>
+        <div className="flex justify-between items-center px-1">
+          <p className="text-xs font-medium text-slate-500">Rate: $0.01 / member</p>
+          <p className="text-xs font-bold text-indigo-600 dark:text-indigo-400">Total: ${ (0.01 * 100).toFixed(2) }+</p>
+        </div>
       </div>
 
-      {error && <p className="text-red-500 text-sm">{error}</p>}
-      {success && <p className="text-green-500 text-sm">{success}</p>}
+      {error && (
+        <div className="p-3 rounded-xl bg-rose-50 dark:bg-rose-900/20 border border-rose-100 dark:border-rose-800">
+          <p className="text-rose-600 dark:text-rose-400 text-sm font-medium">{error}</p>
+        </div>
+      )}
+      
+      {success && (
+        <div className="p-3 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-800">
+          <p className="text-emerald-600 dark:text-emerald-400 text-sm font-medium">{success}</p>
+        </div>
+      )}
 
       <button
         type="submit"
         disabled={loading}
-        className={`w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 ${
-          loading ? "opacity-50 cursor-not-allowed" : ""
-        }`}
+        className={`w-full btn-primary ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
       >
-        {loading ? "Processing..." : "Place Order"}
+        {loading ? "Processing Order..." : "Confirm & Launch Campaign"}
       </button>
     </form>
   );
