@@ -13,7 +13,7 @@ declare module "next-auth" {
 }
 
 export const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma),
+  adapter: prisma ? PrismaAdapter(prisma) : undefined as any,
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -22,7 +22,7 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        if (!credentials?.email) return null;
+        if (!prisma || !credentials?.email) return null;
 
         // For simplicity in this demo, we'll just find or create a user
         // In a real app, you'd check passwords
@@ -48,7 +48,7 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async session({ session, token }: any) {
-      if (session.user) {
+      if (session.user && prisma) {
         session.user.id = token.sub;
         // Fetch balance from DB
         const user = await prisma.user.findUnique({

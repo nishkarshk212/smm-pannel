@@ -8,6 +8,13 @@ const nextConfig = {
   serverRuntimeConfig: {
     dynamic: 'force-dynamic',
   },
+  // Exclude API routes from static generation
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+    };
+    return config;
+  },
 };
 
 module.exports = nextConfig;

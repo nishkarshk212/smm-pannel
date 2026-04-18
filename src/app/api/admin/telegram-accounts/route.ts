@@ -8,6 +8,10 @@ export const dynamic = 'force-dynamic';
 
 // This would typically be an admin-only endpoint
 export async function POST(req: Request) {
+  if (!prisma) {
+    return NextResponse.json({ error: "Database not configured" }, { status: 503 });
+  }
+
   const session = await getServerSession(authOptions);
 
   if (!session) {
@@ -42,6 +46,10 @@ export async function POST(req: Request) {
 }
 
 export async function GET() {
+  if (!prisma) {
+    return NextResponse.json({ error: "Database not configured" }, { status: 503 });
+  }
+
   const accounts = await (prisma as any).telegramAccount.findMany({
     orderBy: { createdAt: "desc" },
   });

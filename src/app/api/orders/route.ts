@@ -10,6 +10,10 @@ export const dynamic = 'force-dynamic';
 const PRICE_PER_UNIT = 0.01;
 
 export async function POST(req: Request) {
+  if (!prisma) {
+    return NextResponse.json({ error: "Database not configured" }, { status: 503 });
+  }
+
   const session = await getServerSession(authOptions);
 
   if (!session) {
@@ -25,7 +29,7 @@ export async function POST(req: Request) {
   const cost = quantity * PRICE_PER_UNIT;
 
   // Check user balance
-  const user = await prisma.user.findUnique({
+  const user = await prisma!.user.findUnique({
     where: { id: (session.user as any).id },
   });
 
@@ -34,7 +38,7 @@ export async function POST(req: Request) {
   }
 
   try {
-    const result = await prisma.$transaction(async (tx) => {
+    const result = await prisma!.$transaction(async (tx: any) => {
       // Deduct balance
       await tx.user.update({
         where: { id: user.id },
@@ -58,7 +62,7 @@ export async function POST(req: Request) {
 
     // Start processing in background (simulated)
     processTelegramOrder(result.id, target, quantity).then(async () => {
-      await prisma.order.update({
+      await prisma!.order.update({
         where: { id: result.id },
         data: { status: "COMPLETED" },
       });

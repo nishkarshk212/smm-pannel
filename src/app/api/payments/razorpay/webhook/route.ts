@@ -5,6 +5,10 @@ import crypto from 'crypto';
 const webhookSecret = process.env.RAZORPAY_WEBHOOK_SECRET!;
 
 export async function POST(req: Request) {
+  if (!prisma) {
+    return NextResponse.json({ error: "Database not configured" }, { status: 503 });
+  }
+
   const body = await req.text();
   const signature = req.headers.get('x-razorpay-signature')!;
 
@@ -34,7 +38,7 @@ export async function POST(req: Request) {
       }
 
       // Create payment record and update user balance
-      await prisma.$transaction(async (tx) => {
+      await prisma!.$transaction(async (tx: any) => {
         // Create payment record
         await tx.payment.create({
           data: {

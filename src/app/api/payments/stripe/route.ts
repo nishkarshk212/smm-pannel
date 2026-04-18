@@ -4,11 +4,18 @@ import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2024-04-10',
-});
+// Only initialize Stripe if credentials are available
+const stripe = process.env.STRIPE_SECRET_KEY 
+  ? new Stripe(process.env.STRIPE_SECRET_KEY!, {
+      apiVersion: '2024-04-10',
+    })
+  : null;
 
 export async function POST(req: Request) {
+  if (!stripe) {
+    return NextResponse.json({ error: "Payment gateway not configured" }, { status: 503 });
+  }
+
   const session = await getServerSession(authOptions);
 
   if (!session) {

@@ -2,13 +2,20 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2024-04-10',
-});
+// Only initialize Stripe if credentials are available
+const stripe = process.env.STRIPE_SECRET_KEY 
+  ? new Stripe(process.env.STRIPE_SECRET_KEY!, {
+      apiVersion: '2024-04-10',
+    })
+  : null;
 
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET!;
 
 export async function POST(req: Request) {
+  if (!prisma || !stripe) {
+    return NextResponse.json({ error: "Service not configured" }, { status: 503 });
+  }
+
   const body = await req.text();
   const signature = req.headers.get('stripe-signature')!;
 
@@ -34,7 +41,7 @@ export async function POST(req: Request) {
       }
 
       // Create payment record and update user balance
-      await prisma.$transaction(async (tx) => {
+      await prisma!.$transaction(async (tx: any) => {
         // Create payment record
         await tx.payment.create({
           data: {
