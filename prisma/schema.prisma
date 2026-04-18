@@ -86,9 +86,10 @@ model Payment {
   id            String   @id @default(cuid())
   userId        String
   amount        Float
-  status        String   @default("PENDING") // PENDING, COMPLETED, FAILED
-  provider      String   // e.g., "STRIPE", "CRYPTO"
-  externalId    String?  // Stripe session ID or transaction hash
+  status        String   @default("PENDING") // PENDING, COMPLETED, FAILED, APPROVED, REJECTED
+  provider      String   // e.g., "STRIPE", "RAZORPAY", "MANUAL"
+  externalId    String?  // Stripe session ID, transaction hash, or manual transaction ID
+  metadata      String?  // JSON string for additional data
   createdAt     DateTime @default(now())
   user          User     @relation(fields: [userId], references: [id])
 }
