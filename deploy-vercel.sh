@@ -4,11 +4,18 @@ echo "🚀 SMM Panel - Vercel Deployment Script"
 echo "========================================"
 echo ""
 
-# Check if Vercel CLI is installed
-if ! command -v vercel &> /dev/null; then
-    echo "❌ Vercel CLI not found. Installing..."
-    npm install -g vercel
+# Check if Vercel CLI is available (local or global)
+if ! command -v npx vercel &> /dev/null && ! command -v vercel &> /dev/null; then
+    echo "📦 Installing Vercel CLI locally..."
+    npm install vercel --save-dev
     echo "✅ Vercel CLI installed"
+fi
+
+# Use npx if vercel is not globally installed
+if command -v vercel &> /dev/null; then
+    VERCEL_CMD="vercel"
+else
+    VERCEL_CMD="npx vercel"
 fi
 
 # Check if .env exists
@@ -84,7 +91,7 @@ echo "-------------------------"
 echo ""
 
 # Deploy to Vercel with environment variables
-vercel --prod \
+$VERCEL_CMD --prod \
   --env DATABASE_URL="$DATABASE_URL" \
   --env NEXTAUTH_SECRET="$NEXTAUTH_SECRET" \
   --env NEXTAUTH_URL="$NEXTAUTH_URL" \
