@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 15, 23, 42;
-  --background-start-rgb: 248, 250, 252;
-  --background-end-rgb: 255, 255, 255;
+  --foreground-rgb: 248, 250, 252;
+  --background-start-rgb: 15, 23, 42;
+  --background-end-rgb: 2, 6, 23;
   
   --primary: 99, 102, 241;
   --primary-dark: 79, 70, 229;
@@ -29,6 +29,11 @@ body {
       rgb(var(--background-end-rgb))
     );
   min-height: 100vh;
+}
+
+/* Force dark mode for html and body */
+html {
+  color-scheme: dark;
 }
 
 @layer components {
