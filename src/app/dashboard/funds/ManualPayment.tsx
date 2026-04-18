@@ -19,18 +19,18 @@ export default function ManualPaymentPage() {
   // Your payment details - UPDATE THESE WITH YOUR ACTUAL DETAILS
   const PAYMENT_DETAILS = {
     upi: {
-      id: "your-upi-id@paytm", // CHANGE THIS to your UPI ID
-      name: "Your Business Name", // CHANGE THIS
+      id: "nishkarshk46@oksbi", // Your UPI ID
+      name: "Nishkarsh Kumar", // Your Name
     },
     qrCode: {
       // You can generate a QR code from your UPI ID using this URL format
-      upiUrl: `upi://pay?pa=your-upi-id@paytm&pn=Your%20Business%20Name&cu=INR`, // CHANGE THIS
+      upiUrl: `upi://pay?pa=nishkarshk46@oksbi&pn=Nishkarsh%20Kumar&cu=INR`, // Your UPI URL
     },
     bank: {
-      accountName: "Your Name", // CHANGE THIS
-      accountNumber: "1234567890", // CHANGE THIS
-      ifsc: "SBIN0001234", // CHANGE THIS
-      bankName: "State Bank of India", // CHANGE THIS
+      accountName: "Nishkarsh Kumar", // Your Name
+      accountNumber: "", // Add your account number if you want bank transfers
+      ifsc: "", // Add your IFSC code if you want bank transfers
+      bankName: "State Bank of India", // Your Bank
     },
   };
 
