@@ -8,6 +8,11 @@
   "env": {
     "NEXT_TELEMETRY_DISABLED": "1"
   },
+  "build": {
+    "env": {
+      "PRISMA_GENERATE": "true"
+    }
+  },
   "headers": [
     {
       "source": "/(.*)",
