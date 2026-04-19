@@ -25,10 +25,10 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
           <div className="flex items-center gap-3 group cursor-pointer">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-indigo-500/20 group-hover:scale-110 transition-transform">
-              S
+              A
             </div>
             <span className="text-xl font-black tracking-tight">
-              AVIATOR <span className="text-green-500">GAME</span>
+              AVIATOR <span className="text-green-500">EARNINGS</span>
             </span>
           </div>
           
@@ -67,18 +67,18 @@ export default function Home() {
             </div>
             
             <h1 className="text-6xl md:text-9xl font-black tracking-tighter mb-8 leading-[0.85] text-white">
-              Play & Win with <br />
+              Earn Big with <br />
               <span className="text-gradient">Aviator Game</span>
             </h1>
             
             <p className="max-w-3xl mx-auto text-lg md:text-2xl text-slate-400 font-medium leading-relaxed mb-12">
-              The ultimate crash game experience! Place your bets, watch the multiplier rise, and cash out before it crashes!
-              Win up to 100x your bet amount instantly.
+              India's most trusted aviator earning platform! Play smart, win big, and withdraw instantly.
+              Join thousands of players earning real money every day with our provably fair crash game!
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full sm:w-auto">
               <Link href="/dashboard" className="group w-full sm:w-auto px-12 py-6 bg-green-600 hover:bg-green-500 text-white rounded-2xl text-xl font-black shadow-2xl shadow-green-600/30 transition-all flex items-center justify-center gap-3">
-                Start Playing <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+                Start Earning <ArrowRight className="group-hover:translate-x-2 transition-transform" />
               </Link>
               <Link href="#features" className="w-full sm:w-auto px-12 py-6 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl text-xl font-black border border-slate-800 transition-all text-center">
                 How It Works
