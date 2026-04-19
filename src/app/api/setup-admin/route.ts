@@ -13,7 +13,7 @@ export async function GET() {
   }
 
   try {
-    const adminEmail = "nishkarshk46@gmail.com";
+    const adminEmail = "ankukr656@gmail.com";
     const adminPassword = "Nishkarsh242";
     
     // Check if user already exists
