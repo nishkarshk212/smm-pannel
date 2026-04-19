@@ -14,7 +14,8 @@ import {
   Settings,
   HelpCircle,
   PackageSearch,
-  Globe
+  Globe,
+  Gamepad2
 } from "lucide-react";
 import { useState } from "react";
 import { clsx, type ClassValue } from "clsx";
@@ -27,6 +28,7 @@ function cn(...inputs: ClassValue[]) {
 
 const navItems = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+  { name: "Play Aviator", href: "/dashboard/game", icon: Gamepad2 },
   { name: "New Order", href: "/dashboard/order", icon: ShoppingCart },
   { name: "Add Funds", href: "/dashboard/funds", icon: Wallet },
   { name: "Services", href: "/dashboard/services", icon: PackageSearch },
@@ -67,11 +69,11 @@ export default function Sidebar({ userEmail, balance }: { userEmail: string; bal
         <div className="flex flex-col h-full p-6">
           {/* Logo */}
           <div className="flex items-center gap-3 mb-10 px-2">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-indigo-500/20">
-              S
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-green-600 to-emerald-600 flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-green-500/20">
+              A
             </div>
             <span className="text-xl font-black tracking-tight text-slate-900 dark:text-white">
-              SMM <span className="text-indigo-500">PANEL</span>
+              AVIATOR <span className="text-green-500">GAME</span>
             </span>
           </div>
 
@@ -87,7 +89,7 @@ export default function Sidebar({ userEmail, balance }: { userEmail: string; bal
                   className={cn(
                     "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all duration-200 group",
                     isActive 
-                      ? "bg-indigo-600 text-white shadow-lg shadow-indigo-500/25" 
+                      ? "bg-green-600 text-white shadow-lg shadow-green-500/25" 
                       : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white"
                   )}
                 >
@@ -112,7 +114,7 @@ export default function Sidebar({ userEmail, balance }: { userEmail: string; bal
                   className={cn(
                     "flex-1 py-1.5 px-3 rounded-lg text-[10px] font-black transition-all",
                     currency === "USD" 
-                      ? "bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm" 
+                      ? "bg-white dark:bg-slate-700 text-green-600 dark:text-green-400 shadow-sm" 
                       : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
                   )}
                 >
@@ -123,7 +125,7 @@ export default function Sidebar({ userEmail, balance }: { userEmail: string; bal
                   className={cn(
                     "flex-1 py-1.5 px-3 rounded-lg text-[10px] font-black transition-all",
                     currency === "INR" 
-                      ? "bg-white dark:bg-slate-700 text-indigo-600 dark:text-indigo-400 shadow-sm" 
+                      ? "bg-white dark:bg-slate-700 text-green-600 dark:text-green-400 shadow-sm" 
                       : "text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
                   )}
                 >
@@ -135,7 +137,7 @@ export default function Sidebar({ userEmail, balance }: { userEmail: string; bal
             <div className="glass-card p-4 bg-slate-50/50 dark:bg-slate-800/30">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Balance</span>
-                <Link href="/dashboard/funds" className="p-1 rounded-md bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 transition-colors">
+                <Link href="/dashboard/funds" className="p-1 rounded-md bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400 hover:bg-green-100 transition-colors">
                   <Wallet size={14} />
                 </Link>
               </div>

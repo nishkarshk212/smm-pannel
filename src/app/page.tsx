@@ -28,7 +28,7 @@ export default function Home() {
               S
             </div>
             <span className="text-xl font-black tracking-tight">
-              SMM <span className="text-indigo-500">PANEL</span>
+              AVIATOR <span className="text-green-500">GAME</span>
             </span>
           </div>
           
@@ -61,46 +61,46 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="flex flex-col items-center text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 mb-8 animate-bounce">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/10 border border-green-500/20 mb-8 animate-bounce">
               <Star size={14} className="text-yellow-400 fill-yellow-400" />
-              <span className="text-xs font-black text-indigo-400 uppercase tracking-widest">🎖️ Top #1 Trusted SMM Panel in World</span>
+              <span className="text-xs font-black text-green-400 uppercase tracking-widest">🎖️ #1 Trusted Crash Game in India</span>
             </div>
             
             <h1 className="text-6xl md:text-9xl font-black tracking-tighter mb-8 leading-[0.85] text-white">
-              Cheapest <span className="text-indigo-500">SMM</span> <br />
-              <span className="text-gradient">Panel India</span>
+              Play & Win with <br />
+              <span className="text-gradient">Aviator Game</span>
             </h1>
             
             <p className="max-w-3xl mx-auto text-lg md:text-2xl text-slate-400 font-medium leading-relaxed mb-12">
-              Get Real, Non-Drop Followers and Engagement with our premium services. 
-              Boosting social media profiles since 2020 with genuine, instant results.
+              The ultimate crash game experience! Place your bets, watch the multiplier rise, and cash out before it crashes!
+              Win up to 100x your bet amount instantly.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 w-full sm:w-auto">
-              <Link href="/api/auth/signin" className="group w-full sm:w-auto px-12 py-6 bg-indigo-600 hover:bg-indigo-500 text-white rounded-2xl text-xl font-black shadow-2xl shadow-indigo-600/30 transition-all flex items-center justify-center gap-3">
-                Join Now <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+              <Link href="/dashboard" className="group w-full sm:w-auto px-12 py-6 bg-green-600 hover:bg-green-500 text-white rounded-2xl text-xl font-black shadow-2xl shadow-green-600/30 transition-all flex items-center justify-center gap-3">
+                Start Playing <ArrowRight className="group-hover:translate-x-2 transition-transform" />
               </Link>
-              <Link href="/dashboard" className="w-full sm:w-auto px-12 py-6 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl text-xl font-black border border-slate-800 transition-all text-center">
-                View Pricing
+              <Link href="#features" className="w-full sm:w-auto px-12 py-6 bg-slate-900 hover:bg-slate-800 text-white rounded-2xl text-xl font-black border border-slate-800 transition-all text-center">
+                How It Works
               </Link>
             </div>
 
             {/* Live Achievement Banner */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full mt-24 p-8 rounded-[40px] bg-slate-900/40 border border-slate-800/50 backdrop-blur-xl">
               <div className="flex flex-col items-center gap-2">
-                <div className="text-sm font-black text-slate-500 uppercase tracking-widest">Orders Completed</div>
-                <div className="text-4xl font-black text-white">2,733,302+</div>
-                <div className="text-xs font-bold text-indigo-400">Order every 0.11 SEC</div>
+                <div className="text-sm font-black text-slate-500 uppercase tracking-widest">Total Winnings</div>
+                <div className="text-4xl font-black text-white">₹10L+</div>
+                <div className="text-xs font-bold text-green-400">Paid out this month</div>
               </div>
               <div className="flex flex-col items-center gap-2 md:border-x border-slate-800">
-                <div className="text-sm font-black text-slate-500 uppercase tracking-widest">Active Services</div>
-                <div className="text-4xl font-black text-white">5,000+</div>
-                <div className="text-xs font-bold text-emerald-400">Starting at $0.002</div>
+                <div className="text-sm font-black text-slate-500 uppercase tracking-widest">Active Players</div>
+                <div className="text-4xl font-black text-white">50K+</div>
+                <div className="text-xs font-bold text-emerald-400">Growing daily</div>
               </div>
               <div className="flex flex-col items-center gap-2">
-                <div className="text-sm font-black text-slate-500 uppercase tracking-widest">Total Clients</div>
-                <div className="text-4xl font-black text-white">11,000+</div>
-                <div className="text-xs font-bold text-amber-400">83% Retention Rate</div>
+                <div className="text-sm font-black text-slate-500 uppercase tracking-widest">Max Multiplier</div>
+                <div className="text-4xl font-black text-white">100x</div>
+                <div className="text-xs font-bold text-amber-400">Win big every round</div>
               </div>
             </div>
           </div>
