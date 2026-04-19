@@ -2,7 +2,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
-import { processTelegramOrder } from "@/lib/telegram";
+import { placeOrder, getServiceMapping } from "@/lib/airsmm";
 
 // Force dynamic rendering to prevent build-time database access
 export const dynamic = 'force-dynamic';
@@ -60,18 +60,33 @@ export async function POST(req: Request) {
       return order;
     });
 
-    // Note: Orders remain PENDING for admin to process manually
-    // Admin will update status to PROCESSING -> COMPLETED after adding members
-    // processTelegramOrder(result.id, target, quantity).then(async () => {
-    //   await prisma!.order.update({
-    //     where: { id: result.id },
-    //     data: { status: "COMPLETED" },
-    //   });
-    // });
+    // Send order to AirSMM API automatically
+    try {
+      const airsmmServiceId = getServiceMapping(result.service);
+      const airsmmResponse = await placeOrder(
+        airsmmServiceId,
+        result.target,
+        result.quantity
+      );
+
+      // Update order with AirSMM order ID
+      await prisma!.order.update({
+        where: { id: result.id },
+        data: {
+          status: "PROCESSING",
+          // Store AirSMM order ID in a metadata field if you add one
+        },
+      });
+
+      console.log(`Order ${result.id} sent to AirSMM. AirSMM Order ID: ${airsmmResponse.orderId}`);
+    } catch (airsmmError: any) {
+      console.error(`Failed to send order ${result.id} to AirSMM:`, airsmmError.message);
+      // Keep order as PENDING if AirSMM fails, admin can retry manually
+    }
 
     return NextResponse.json({
       ...result,
-      message: "Order placed successfully. Admin will process it shortly."
+      message: "Order placed successfully. Processing will start shortly."
     });
   } catch (err) {
     console.error("Order error:", err);
