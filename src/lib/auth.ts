@@ -16,15 +16,10 @@ declare module "next-auth" {
 export const authOptions: NextAuthOptions = {
   adapter: prisma ? PrismaAdapter(prisma) : undefined as any,
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }),
     CredentialsProvider({
-      name: "Credentials",
+      name: "Email",
       credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
+        email: { label: "Email", type: "email", placeholder: "your@email.com" },
       },
       async authorize(credentials) {
         if (!credentials?.email) {
@@ -38,8 +33,7 @@ export const authOptions: NextAuthOptions = {
         }
 
         try {
-          // For simplicity in this demo, we'll just find or create a user
-          // In a real app, you'd check passwords
+          // Find or create user by email (passwordless authentication)
           let user = await prisma.user.findUnique({
             where: { email: credentials.email },
           });
