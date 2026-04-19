@@ -33,6 +33,7 @@ export default async function DashboardLayout({
                   SMM Panel
                 </Link>
               </div>
+              {/* Desktop Navigation */}
               <div className="hidden sm:ml-8 sm:flex sm:space-x-8">
                 <Link
                   href="/dashboard"
@@ -66,8 +67,8 @@ export default async function DashboardLayout({
                 </Link>
               </div>
             </div>
-            <div className="flex items-center space-x-6">
-              <div className="px-4 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800">
+            <div className="flex items-center space-x-4 sm:space-x-6">
+              <div className="px-3 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800">
                 <span className="text-sm font-bold text-indigo-600 dark:text-indigo-400">
                   ${session.user?.balance?.toFixed(2) || "0.00"}
                 </span>
@@ -85,10 +86,46 @@ export default async function DashboardLayout({
               </Link>
             </div>
           </div>
+          
+          {/* Mobile Navigation Menu */}
+          <div className="sm:hidden pb-3">
+            <div className="flex flex-wrap gap-2 pt-2">
+              <Link
+                href="/dashboard"
+                className="px-3 py-2 rounded-lg text-xs font-semibold bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-indigo-800 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 transition-colors"
+              >
+                📊 Dashboard
+              </Link>
+              <Link
+                href="/dashboard/order"
+                className="px-3 py-2 rounded-lg text-xs font-semibold bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-800 hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-colors"
+              >
+                🛒 New Order
+              </Link>
+              <Link
+                href="/dashboard/funds"
+                className="px-3 py-2 rounded-lg text-xs font-semibold bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border border-amber-100 dark:border-amber-800 hover:bg-amber-100 dark:hover:bg-amber-900/50 transition-colors"
+              >
+                💰 Add Funds
+              </Link>
+              <Link
+                href="/dashboard/referrals"
+                className="px-3 py-2 rounded-lg text-xs font-semibold bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 border border-purple-100 dark:border-purple-800 hover:bg-purple-100 dark:hover:bg-purple-900/50 transition-colors"
+              >
+                👥 Affiliates
+              </Link>
+              <Link
+                href="/dashboard/tickets"
+                className="px-3 py-2 rounded-lg text-xs font-semibold bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 border border-rose-100 dark:border-rose-800 hover:bg-rose-100 dark:hover:bg-rose-900/50 transition-colors"
+              >
+                🎫 Support
+              </Link>
+            </div>
+          </div>
         </div>
       </nav>
       <main className="py-8">
-        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 px-4">
           {children}
         </div>
       </main>
