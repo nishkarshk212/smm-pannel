@@ -22,7 +22,7 @@ export async function GET() {
 
     return NextResponse.json({
       currentRound: currentRound || null,
-      history: history.map(h => h.crashedAt),
+      history: history.map((h: { crashedAt: number }) => h.crashedAt),
     });
   } catch (error) {
     console.error('Error getting game state:', error);

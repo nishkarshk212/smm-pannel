@@ -184,7 +184,7 @@ export function initializeGameEngine() {
   // Check if there's an active game
   prisma.gameRound.findFirst({
     where: { status: { in: ['PENDING', 'RUNNING'] } },
-  }).then(round => {
+  }).then((round: { status: string } | null) => {
     if (!round) {
       startNewRound();
     } else if (round.status === 'PENDING') {
