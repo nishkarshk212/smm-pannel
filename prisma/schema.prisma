@@ -8,17 +8,17 @@ datasource db {
 }
 
 model User {
-  id               String    @id @default(cuid())
+  id               String        @id @default(cuid())
   name             String?
-  email            String?   @unique
-  password         String?
+  email            String?       @unique
   emailVerified    DateTime?
   image            String?
-  balance          Float     @default(0.0)
-  referralCode     String    @unique @default(cuid())
-  referralEarnings Float     @default(0.0)
+  balance          Float         @default(0.0)
+  referralCode     String        @unique @default(cuid())
+  referralEarnings Float         @default(0.0)
   referredById     String?
-  role             String    @default("USER")
+  role             String        @default("USER")
+  password         String?
   accounts         Account[]
   bets             Bet[]
   orders           Order[]
@@ -26,8 +26,8 @@ model User {
   sessions         Session[]
   tickets          Ticket[]
   transactions     Transaction[]
-  referredBy       User?     @relation("UserReferrals", fields: [referredById], references: [id])
-  referrals        User[]    @relation("UserReferrals")
+  referredBy       User?         @relation("UserReferrals", fields: [referredById], references: [id])
+  referrals        User[]        @relation("UserReferrals")
 }
 
 model Account {
@@ -57,15 +57,15 @@ model Session {
 }
 
 model GameRound {
-  id           String   @id @default(cuid())
-  roundNumber  Int      @unique
-  multiplier   Float
-  crashedAt    Float
-  status       String   @default("PENDING") // PENDING, RUNNING, COMPLETED
-  startedAt    DateTime?
-  completedAt  DateTime?
-  createdAt    DateTime @default(now())
-  bets         Bet[]
+  id          String    @id @default(cuid())
+  roundNumber Int       @unique
+  multiplier  Float
+  crashedAt   Float
+  status      String    @default("PENDING")
+  startedAt   DateTime?
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  bets        Bet[]
 }
 
 model Bet {
@@ -75,13 +75,13 @@ model Bet {
   amount       Float
   autoCashOut  Float?
   cashedOutAt  Float?
-  status       String    @default("PENDING") // PENDING, ACTIVE, CASHED_OUT, LOST
+  status       String    @default("PENDING")
   potentialWin Float?
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
-  user         User      @relation(fields: [userId], references: [id])
   round        GameRound @relation(fields: [roundId], references: [id])
-  
+  user         User      @relation(fields: [userId], references: [id])
+
   @@index([userId])
   @@index([roundId])
 }
@@ -89,14 +89,14 @@ model Bet {
 model Transaction {
   id          String   @id @default(cuid())
   userId      String
-  type        String   // DEPOSIT, WITHDRAWAL, BET, WIN, REFERRAL
+  type        String
   amount      Float
-  status      String   @default("PENDING") // PENDING, COMPLETED, FAILED
+  status      String   @default("PENDING")
   description String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   user        User     @relation(fields: [userId], references: [id])
-  
+
   @@index([userId])
 }
 

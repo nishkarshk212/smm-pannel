@@ -93,23 +93,82 @@ export default function AviatorGame({
         }
       }
       ctx.stroke();
+      
+      // Draw trail behind airplane
+      ctx.strokeStyle = curveColor;
+      ctx.lineWidth = 2;
+      ctx.globalAlpha = 0.5;
+      ctx.beginPath();
+      const trailStart = 0.7;
+      for (let t = trailStart; t <= 1; t += 0.01) {
+        const x = startX + (endX - startX) * t;
+        const y = startY - (startY - endY) * Math.pow(t, 2);
+        
+        if (t === trailStart) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      }
+      ctx.stroke();
+      ctx.globalAlpha = 1.0;
 
-      // Draw plane/rocket
+      // Draw airplane
       const planeX = endX;
       const planeY = endY;
       
+      // Draw airplane shape
+      ctx.save();
+      ctx.translate(planeX, planeY);
+      
+      // Airplane body
       ctx.fillStyle = curveColor;
       ctx.beginPath();
-      ctx.arc(planeX, planeY, 8, 0, Math.PI * 2);
+      ctx.ellipse(0, 0, 20, 8, 0, 0, Math.PI * 2);
       ctx.fill();
-
+      
+      // Wings
+      ctx.fillStyle = curveColor;
+      ctx.beginPath();
+      ctx.moveTo(-10, 0);
+      ctx.lineTo(5, -15);
+      ctx.lineTo(15, -15);
+      ctx.lineTo(5, 0);
+      ctx.closePath();
+      ctx.fill();
+      
+      ctx.beginPath();
+      ctx.moveTo(-10, 0);
+      ctx.lineTo(5, 15);
+      ctx.lineTo(15, 15);
+      ctx.lineTo(5, 0);
+      ctx.closePath();
+      ctx.fill();
+      
+      // Tail
+      ctx.beginPath();
+      ctx.moveTo(-18, 0);
+      ctx.lineTo(-25, -10);
+      ctx.lineTo(-20, 0);
+      ctx.closePath();
+      ctx.fill();
+      
+      ctx.beginPath();
+      ctx.moveTo(-18, 0);
+      ctx.lineTo(-25, 10);
+      ctx.lineTo(-20, 0);
+      ctx.closePath();
+      ctx.fill();
+      
       // Glow effect
       ctx.shadowColor = curveColor;
       ctx.shadowBlur = 20;
       ctx.beginPath();
-      ctx.arc(planeX, planeY, 8, 0, Math.PI * 2);
+      ctx.arc(0, 0, 8, 0, Math.PI * 2);
       ctx.fill();
       ctx.shadowBlur = 0;
+      
+      ctx.restore();
 
       // Display multiplier
       ctx.fillStyle = '#ffffff';
