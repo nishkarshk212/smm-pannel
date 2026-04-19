@@ -60,15 +60,19 @@ export async function POST(req: Request) {
       return order;
     });
 
-    // Start processing in background (simulated)
-    processTelegramOrder(result.id, target, quantity).then(async () => {
-      await prisma!.order.update({
-        where: { id: result.id },
-        data: { status: "COMPLETED" },
-      });
-    });
+    // Note: Orders remain PENDING for admin to process manually
+    // Admin will update status to PROCESSING -> COMPLETED after adding members
+    // processTelegramOrder(result.id, target, quantity).then(async () => {
+    //   await prisma!.order.update({
+    //     where: { id: result.id },
+    //     data: { status: "COMPLETED" },
+    //   });
+    // });
 
-    return NextResponse.json(result);
+    return NextResponse.json({
+      ...result,
+      message: "Order placed successfully. Admin will process it shortly."
+    });
   } catch (err) {
     console.error("Order error:", err);
     return NextResponse.json({ error: "Failed to process order" }, { status: 500 });
