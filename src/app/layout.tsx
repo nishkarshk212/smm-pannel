@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/next";
 import Providers from "./Providers";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "SMM Panel - Telegram Member Adder",
-  description: "Boost your Telegram channel members instantly",
+  title: "Aviator Earnings - Play & Win Big",
+  description: "India's most trusted aviator earning platform. Play smart, win big, and withdraw instantly!",
 };
 
 export default function RootLayout({
