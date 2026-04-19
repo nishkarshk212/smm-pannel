@@ -21,6 +21,7 @@ model User {
   role             String    @default("USER")
   accounts         Account[]
   bets             Bet[]
+  orders           Order[]
   payments         Payment[]
   sessions         Session[]
   tickets          Ticket[]
